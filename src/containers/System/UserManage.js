@@ -3,18 +3,21 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss'
 import { getAllUsers } from '../../services/userService';
+import ModalUser from './ModalUser';
+import { isOptionalChain } from 'typescript';
 class UserManage extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            arrUsers: []
+            arrUsers: [],
+            isOpenModalUser: false
         }
     }
 
     async componentDidMount() {
         let response = await getAllUsers('ALL');
-        if(response && response.errCode === 0){
+        if (response && response.errCode === 0) {
             this.setState({
                 arrUsers: response.users
             }, () => {
@@ -32,12 +35,32 @@ class UserManage extends Component {
      * 
      * 
      */
+    handleAddNewUser = () => {
+        this.setState({
+            isOpenModalUser: true
+        })
+    }
 
+    toggleUserModal = () => {
+        this.setState({
+            isOpenModalUser: !this.state.isOpenModalUser
+        })
+    }
     render() {
         let arrUsers = this.state.arrUsers;
         return (
             <div className="users-container">
+                <ModalUser
+                    isOpen={this.state.isOpenModalUser}
+                    toggleFromParent={this.toggleUserModal}
+                    test={'abc'}
+                ></ModalUser>
                 <div className='title text-center'>Manage User</div>
+                <div className='mx-1'>
+                    <button className='btn btn-primary px-3'
+                        onClick={() => this.handleAddNewUser()}
+                    ><i class="fas fa-plus"></i> Add new user</button>
+                </div>
                 <div className='users-table mt-3 mx-1'>
                     <table id="customers">
                         <tr>
@@ -47,10 +70,10 @@ class UserManage extends Component {
                             <th>Address</th>
                             <th>Actions</th>
                         </tr>
-                        
-                        { arrUsers && arrUsers.map((item, index) => {
+
+                        {arrUsers && arrUsers.map((item, index) => {
                             console.log('checkmap', item, index)
-                            return(
+                            return (
                                 <tr>
                                     <td>{item.email}</td>
                                     <td>{item.firstName}</td>
@@ -67,13 +90,13 @@ class UserManage extends Component {
                                 </tr>
                             )
                         })}
-                            
-                        
-                        
+
+
+
                     </table>
                 </div>
-                    
-                
+
+
             </div>
         );
     }
