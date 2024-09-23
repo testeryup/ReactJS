@@ -59,44 +59,41 @@ class UserManage extends Component {
                 <div className='mx-1'>
                     <button className='btn btn-primary px-3'
                         onClick={() => this.handleAddNewUser()}
-                    ><i class="fas fa-plus"></i> Add new user</button>
+                    ><i className="fas fa-plus"></i> Add new user</button>
                 </div>
                 <div className='users-table mt-3 mx-1'>
                     <table id="customers">
-                        <tr>
-                            <th>Email</th>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Address</th>
-                            <th>Actions</th>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>Email</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Address</th>
+                                <th>Actions</th>
+                            </tr>
 
-                        {arrUsers && arrUsers.map((item, index) => {
-                            console.log('checkmap', item, index)
-                            return (
-                                <tr>
-                                    <td>{item.email}</td>
-                                    <td>{item.firstName}</td>
-                                    <td>{item.lastName}</td>
-                                    <td>{item.address}</td>
-                                    <td>
-                                        <button className='btn-edit'>
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </button>
-                                        <button className='btn-delete'>
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-
-
-
+                            {arrUsers && arrUsers.map((item, index) => {
+                                console.log('checkmap', item, index)
+                                return (
+                                    <tr key={index}>
+                                        <td>{item.email}</td>
+                                        <td>{item.firstName}</td>
+                                        <td>{item.lastName}</td>
+                                        <td>{item.address}</td>
+                                        <td>
+                                            <button className='btn-edit'>
+                                                <i className="fas fa-pencil-alt"></i>
+                                            </button>
+                                            <button className='btn-delete'>
+                                                <i className="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
                     </table>
                 </div>
-
-
             </div>
         );
     }
