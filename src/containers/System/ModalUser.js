@@ -34,20 +34,20 @@ class ModalUser extends Component {
 
     checkValidateInput = () => {
         let arrInput = ['email', 'password', 'firstName', 'lastName', 'address'];
-        for(let i = 0; i < arrInput.length; ++i){
+        for (let i = 0; i < arrInput.length; ++i) {
             if (!this.state[arrInput[i]]) {
-                alert('Missing parameter: '+ arrInput[i]);
+                alert('Missing parameter: ' + arrInput[i]);
                 return false;
             }
         }
-        
+
         return true;
     }
 
     handleAddNewUser = () => {
         let validateInput = this.checkValidateInput();
-        if(validateInput){
-
+        if (validateInput) {
+            this.props.createNewUser(this.state);
         }
     }
     render() {

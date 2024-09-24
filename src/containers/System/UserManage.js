@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss'
-import { getAllUsers } from '../../services/userService';
+import { getAllUsers, createNewUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
 import { isOptionalChain } from 'typescript';
 class UserManage extends Component {
@@ -16,15 +16,8 @@ class UserManage extends Component {
     }
 
     async componentDidMount() {
-        let response = await getAllUsers('ALL');
-        if (response && response.errCode === 0) {
-            this.setState({
-                arrUsers: response.users
-            }, () => {
-                console.log(this.state.arrUsers)
-            })
-        }
-        console.log('get all users: ', response);
+
+        await this.getAllUsersFromReact();
     }
     /** Life cycle
      * Run component
@@ -46,6 +39,33 @@ class UserManage extends Component {
             isOpenModalUser: !this.state.isOpenModalUser
         })
     }
+
+    getAllUsersFromReact = async () => {
+        let response = await getAllUsers('ALL');
+        if (response && response.errCode === 0) {
+            this.setState({
+                arrUsers: response.users
+            })
+        }
+    }
+
+    createNewUser = async (data) => {
+        try {
+            let response = await createNewUserService(data);
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage);
+            }
+            else{
+                await this.getAllUsersFromReact();
+                this.toggleUserModal();
+            }
+            console.log(response)
+        } catch (e) {
+
+        }
+        console.log('check data from child', data)
+    }
+
     render() {
         let arrUsers = this.state.arrUsers;
         return (
@@ -53,7 +73,7 @@ class UserManage extends Component {
                 <ModalUser
                     isOpen={this.state.isOpenModalUser}
                     toggleFromParent={this.toggleUserModal}
-                    test={'abc'}
+                    createNewUser={this.createNewUser}
                 ></ModalUser>
                 <div className='title text-center'>Manage User</div>
                 <div className='mx-1'>
@@ -73,7 +93,6 @@ class UserManage extends Component {
                             </tr>
 
                             {arrUsers && arrUsers.map((item, index) => {
-                                console.log('checkmap', item, index)
                                 return (
                                     <tr key={index}>
                                         <td>{item.email}</td>
