@@ -19,6 +19,7 @@
                 height: 100%;
                 width: 60%;
                 cursor: pointer;
+                // margin-left: -10px;
             }
 
             i {
@@ -45,15 +46,45 @@
         .right-content {
             width: 25%;
             display: flex;
-            justify-content: center;
+            // justify-content: center;
             align-items: center;
+            justify-content: flex-end;
 
+            .support {
+                display: flex;
+                padding-right: 50px;
+                align-items: center;
+
+                i {
+                    font-size: 15px;
+                    margin-right: 5px;
+                }
+            }
+
+            .language-vi {
+                margin-right: 10px;
+                cursor: pointer;
+
+                &.active {
+                    color: red;
+                }
+            }
+
+            .language-en {
+                margin-right: 10px;
+                cursor: pointer;
+
+                &.active {
+                    color: blue;
+                }
+            }
         }
     }
 }
 
 .home-header-banner {
-    background: url(../../assets/header-background.jpg);
+    background-image: url(../../assets/header-background.jpg);
+
     height: 600px;
     background-size: cover;
     background-position: center;
@@ -68,8 +99,9 @@
     flex-direction: column;
 
     .content-above {
-        height: 50%;
-        border: 1px solid red;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.1));
+        height: 65%;
+        // border: 1px solid red;
         text-shadow: 1px 1px 1px #333;
         // display: flex;
         // flex-direction: column;
@@ -117,13 +149,14 @@
     }
 
     .content-below {
-        height: 50%;
-        border: 1px solid rebeccapurple;
+        height: 35%;
+        // border: 1px solid rebeccapurple;
         // font-size: small;
         color: #333;
         display: flex;
         align-items: end;
         justify-content: center;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
 
         .options {
             text-align: center;
@@ -133,7 +166,7 @@
 
             .option-child {
                 width: 125px;
-                border: 1px solid blueviolet;
+                // border: 1px solid blueviolet;
 
 
                 .icon-child {
