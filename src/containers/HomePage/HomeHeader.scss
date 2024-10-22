@@ -64,18 +64,28 @@
             .language-vi {
                 margin-right: 10px;
                 cursor: pointer;
+                opacity: 0.2;
 
                 &.active {
+                    opacity: 1;
                     color: red;
+                }
+                &:hover{
+                    opacity: 0.8;
                 }
             }
 
             .language-en {
                 margin-right: 10px;
                 cursor: pointer;
-
+                opacity: 0.2;
                 &.active {
+                    opacity: 1;
                     color: blue;
+                }
+
+                &:hover{
+                    opacity: 0.8;
                 }
             }
         }
@@ -89,7 +99,6 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 0 15px;
 
 
 

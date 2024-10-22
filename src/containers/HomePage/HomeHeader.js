@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomeHeader.scss'
 import { FormattedMessage } from 'react-intl';
+import { LANGUAGES } from '../../utils';
+
+import { changeLanguageApp } from '../../store/actions';
 
 class HomeHeader extends Component {
 
+    changeLanguage = (language) => {
+        // console.log(this.props);
+        this.props.changeLanguageAppRedux(language);
+    }
     render() {
-        console.log(this.props);
+        console.log('check this props lang:', this.props.language);
         return (
             <React.Fragment>
                 <div className='home-header-container'>
@@ -38,16 +45,15 @@ class HomeHeader extends Component {
                                 <i className="fas fa-question-circle"><FormattedMessage id="home-header.support"></FormattedMessage></i>
 
                             </div>
-                            <div className='language-vi'>VN</div>
-                            <div className='language-en'>US</div>
-                            {/* <div className='flag'>VN</div> */}
+                            <div className={this.props.language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}><span onClick={() => this.changeLanguage(LANGUAGES.VI)}>VN</span></div>
+                            <div className={this.props.language === LANGUAGES.EN ? 'language-en active' : 'language-en'}><span onClick={() => this.changeLanguage(LANGUAGES.EN)}>US</span></div>
                         </div>
                     </div>
                 </div>
                 <div className='home-header-banner'>
                     <div className='content-above'>
-                        <div className='title1'><FormattedMessage id="banner-title1"></FormattedMessage></div>
-                        <div className='title2'><FormattedMessage id="banner-title2"></FormattedMessage></div>
+                        <div className='title1'><FormattedMessage id="banner.title1"></FormattedMessage></div>
+                        <div className='title2'><FormattedMessage id="banner.title2"></FormattedMessage></div>
                         <div className='search'>
                             <i className="fas fa-search"></i>
                             <input type='text' placeholder='Tìm chuyên khoa khám bệnh'></input>
@@ -92,12 +98,13 @@ class HomeHeader extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        lang: state.app.language
+        language: state.app.language
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language))
     };
 };
 
