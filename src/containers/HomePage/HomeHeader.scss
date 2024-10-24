@@ -15,11 +15,11 @@
             align-items: center;
 
             .header-logo {
-                background: url('../../assets/logo.png') center center no-repeat;
-                height: 100%;
-                width: 60%;
+                background: no-repeat center/100% url('../../assets/logo.png');
+                height: 43px;
+                width: 200px;
                 cursor: pointer;
-                // margin-left: -10px;
+                margin-left: 20px;
             }
 
             i {
@@ -169,7 +169,7 @@
         justify-content: center;
         background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
         padding-bottom: 10px;
-        
+
         .options {
             text-align: center;
             display: flex;
