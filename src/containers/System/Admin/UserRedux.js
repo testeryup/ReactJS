@@ -3,6 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { getAllCodeService } from '../../../services/userService'
 import { LANGUAGES } from '../../../utils';
+
+import * as actions from '../../../store/actions'
 class UserRedux extends Component {
 
     constructor(props) {
@@ -13,24 +15,33 @@ class UserRedux extends Component {
     }
 
     async componentDidMount() {
-        try {
-            let res = await getAllCodeService('gender');
-            if (res && res.errCode === 0) {
-                this.setState({
-                    genderArr: res.data
-                })
-            }
-            console.log("check res", res)
-        } catch (e) {
-            console.log(e);
-        }
+        const genderStart = this.props.getGenderStart();
+        // console.log('check gender start',genderStart)
+        // try {
+        //     let res = await getAllCodeService('gender');
+        //     if (res && res.errCode === 0) {
+        //         this.setState({
+        //             genderArr: res.data
+        //         })
+        //     }
+        //     console.log("check res", res)
+        // } catch (e) {
+        //     console.log(e);
+        // }
     }
 
-
+    componentDidUpdate(prevProv, prevState, snapshot){
+        if(prevProv.genderRedux !== this.props.genderRedux){
+            // this.setState({
+            //     genderArr: this.props.genderRedux
+            // })
+        }
+    }
     render() {
         console.log("check state", this.state);
         let genders = this.state.genderArr;
         let language = this.props.language;
+        console.log('check props from redux', this.props.genderRedux)
         return (
             <div>
                 <div className='title'>
@@ -111,12 +122,16 @@ class UserRedux extends Component {
 
 const mapStateToProps = state => {
     return {
-        language: state.app.language
+        language: state.app.language,
+        genderRedux: state.admin.genders
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        // processLogout: () => dispatch(actions.processLogout()),
+        // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
+        getGenderStart: () => dispatch(actions.fetchGenderStart())
     };
 };
 
