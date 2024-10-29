@@ -30,11 +30,11 @@ class UserRedux extends Component {
         // }
     }
 
-    componentDidUpdate(prevProv, prevState, snapshot){
-        if(prevProv.genderRedux !== this.props.genderRedux){
-            // this.setState({
-            //     genderArr: this.props.genderRedux
-            // })
+    componentDidUpdate(prevProv, prevState, snapshot) {
+        if (prevProv.genderRedux !== this.props.genderRedux) {
+            this.setState({
+                genderArr: this.props.genderRedux
+            })
         }
     }
     render() {
@@ -130,7 +130,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         // processLogout: () => dispatch(actions.processLogout()),
-        // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
+        // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language)),
         getGenderStart: () => dispatch(actions.fetchGenderStart())
     };
 };
