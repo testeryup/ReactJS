@@ -11,7 +11,6 @@ const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_GENDER_START:
             state.isLoadingGender = true;
-            console.log("copyState check:", state);
             return {
                 ...state,
             }
@@ -41,6 +40,8 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
             }
+        case actionTypes.SAVE_USER_SUCCESS:
+            
         default:
             return state;
     }
