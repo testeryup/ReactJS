@@ -8,6 +8,8 @@ import * as actions from '../../../store/actions'
 import './UserRedux.scss'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
+
+import TableManageUser from './TableManageUser';
 class UserRedux extends Component {
 
     constructor(props) {
@@ -61,6 +63,21 @@ class UserRedux extends Component {
                 role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : ''
             })
         }
+
+        if (prevProps.listUsers !== this.props.listUsers) {
+            this.setState({
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                phonenumber: '',
+                address: '',
+                gender: '',
+                position: '',
+                role: '',
+                avatar: ''
+            })
+        }
     }
 
     handleOnchangeImage = (event) => {
@@ -87,6 +104,9 @@ class UserRedux extends Component {
     handleSaveUser = () => {
         let isValid = this.checkValidateInput();
         if (isValid === false) return;
+
+
+
         this.props.createNewUser({
             email: this.state.email,
             password: this.state.password,
@@ -97,21 +117,10 @@ class UserRedux extends Component {
             gender: this.state.gender,
             role: this.state.role,
             position: this.state.position,
-        })
-        console.log('check state before submit', this.state);
+        });
     }
 
     onChangeInput = (event, id) => {
-        // email: '',
-        //     password: '',
-        //     firstName: '',
-        //     lastName: '',
-        //     phonenumber: '',
-        //     address: '',
-        //     gender: '',
-        //     position: '',
-        //     role: '',
-        //     avatar: ''
         let copyState = { ...this.state };
         copyState[id] = event.target.value;
         this.setState({
@@ -264,10 +273,14 @@ class UserRedux extends Component {
                                     onClick={this.handleSaveUser}
                                 ><FormattedMessage id="manage-user.save"></FormattedMessage></button>
                             </div>
+                            <div className='col-12 mb-5'>
+                                <TableManageUser></TableManageUser>
+                            </div>
                         </div>
 
                     </div>
                 </div>
+
                 {
                     this.state.isOpen && (<Lightbox
                         mainSrc={this.state.previewImgUrl}
@@ -286,18 +299,20 @@ const mapStateToProps = state => {
         genderRedux: state.admin.genders,
         positionRedux: state.admin.positions,
         roleRedux: state.admin.roles,
-        isLoadingGender: state.admin.isLoadingGender
+        isLoadingGender: state.admin.isLoadingGender,
+        listUsers: state.admin.users
+
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        // processLogout: () => dispatch(actions.processLogout()),
-        // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language)),
         getGenderStart: () => dispatch(actions.fetchGenderStart()),
         getPositionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
-        createNewUser: (data) => dispatch(actions.createNewUser(data))
+        createNewUser: (data) => dispatch(actions.createNewUser(data)),
+        fetchUserRedux: () => dispatch(actions.fetchAllUsersStart())
+
     };
 };
 

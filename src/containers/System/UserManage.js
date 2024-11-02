@@ -23,15 +23,7 @@ class UserManage extends Component {
 
         await this.getAllUsersFromReact();
     }
-    /** Life cycle
-     * Run component
-     * 1. Run construct -> init state
-     * 2. Did mount
-     * 3. Render
-     * 
-     * 
-     * 
-     */
+
     handleAddNewUser = () => {
         this.setState({
             isOpenModalUser: true
