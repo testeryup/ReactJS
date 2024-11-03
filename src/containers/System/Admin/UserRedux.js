@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { getAllCodeService } from '../../../services/userService'
-import { LANGUAGES, CRUD_ACTIONS } from '../../../utils';
+import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
 
 import * as actions from '../../../store/actions'
 import './UserRedux.scss'
@@ -82,19 +82,21 @@ class UserRedux extends Component {
                 gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : '',
                 position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : '',
                 role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : '',
-                action: CRUD_ACTIONS.CREATE
+                action: CRUD_ACTIONS.CREATE,
+                previewImgUrl: ''
             })
         }
     }
 
-    handleOnchangeImage = (event) => {
+    handleOnchangeImage = async (event) => {
         let data = event.target.files;
         let file = data[0];
         if (file) {
+            let base64 = await CommonUtils.toBase64(file);
             let objectUrl = URL.createObjectURL(file)
             this.setState({
                 previewImgUrl: objectUrl,
-                avatar: file
+                avatar: base64
             })
         }
     }
@@ -165,8 +167,17 @@ class UserRedux extends Component {
         return true;
     }
 
-    handleEditUserFromParent = (user) => {
-        console.log("check state of editing user:", user);
+    handleEditUserFromParent = async (user) => {
+        let base64Image = '';
+        // const buffer = Buffer.from(user.image, 'binary');
+        // base64Image = buffer.toString('base64');
+        // if (user.image) {
+        //     base64Image = new Buffer(user.image, 'base64').toString('binary');
+        // }
+        if (user.image) {
+            base64Image = Buffer.from(user.image, 'base64').toString('binary');
+        }
+        console.log("check image editing user:", base64Image);
         this.setState({
             email: user.email,
             password: 'hardcode',
@@ -178,13 +189,14 @@ class UserRedux extends Component {
             position: user.positionId,
             role: user.roleId,
             avatar: '',
+            previewImgUrl: base64Image || '',
             action: CRUD_ACTIONS.EDIT,
             id: user.id
         })
     }
     render() {
         let {
-            email, password, firstName, lastName, phonenumber, address, gender, position, role, avatar
+            email, password, firstName, lastName, phonenumber, address, gender, position, role
         } = this.state;
 
         // console.log("check state", this.state);
