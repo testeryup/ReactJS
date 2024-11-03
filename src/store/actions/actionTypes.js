@@ -30,6 +30,9 @@ const actionTypes = Object.freeze({
 
     FETCH_ALL_USERS_SUCCESS: 'FETCH_ALL_USERS_SUCCESS',
     FETCH_ALL_USERS_FAILED: 'FETCH_ALL_USERS_FAILED',
+
+    EDIT_USER_SUCCESS: 'EDIT_USER_SUCCESS',
+    EDIT_USER_FAILED: 'EDIT_USER_FAILED',
 })
 
 export default actionTypes;
