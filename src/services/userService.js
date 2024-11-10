@@ -15,14 +15,18 @@ const deleteUserService = (userId) => {
         data: {
             id: userId
         }
-    })
+    });
 }
 
 const getAllCodeService = (inputData) => {
-    return axios.get(`/api/allcode?type=${inputData}`)
+    return axios.get(`/api/allcode?type=${inputData}`);
 }
 
 const editUserService = (inputData) => {
-    return axios.put('/api/edit-user', inputData)
+    return axios.put('/api/edit-user', inputData);
 }
-export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllCodeService }
+
+const getTopDoctorHomeService = (limit) => {
+    return axios.get(`/api/top-doctor-home?limit=${limit}`);
+}
+export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllCodeService, getTopDoctorHomeService }
