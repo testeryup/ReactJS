@@ -21,6 +21,10 @@
     // content: '<' !important;
 }
 
+.slick-disabled{
+    display: none !important;
+}
+
 .slick-next {
     right: -10px !important;
     z-index: 1;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Slider from 'react-slick';
 import * as actions from '../../../store/actions'
 import { LANGUAGES } from '../../../utils';
+import { FormattedMessage } from 'react-intl';
 
 class OutstandingDoctor extends Component {
     constructor(props) {
@@ -27,8 +28,8 @@ class OutstandingDoctor extends Component {
             <div className='section-share section-outstanding-doctor'>
                 <div className='section-container'>
                     <div className='section-header'>
-                        <span className='title-section'>Bác sỹ nổi bật tuần qua</span>
-                        <button className='btn-section'>Xem thêm</button>
+                        <span className='title-section'><FormattedMessage id="homepage.outstanding-doctor"></FormattedMessage></span>
+                        <button className='btn-section'><FormattedMessage id="homepage.more"></FormattedMessage></button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
@@ -41,8 +42,8 @@ class OutstandingDoctor extends Component {
                                         base64Image = Buffer.from(item.image, 'base64').toString('binary');
                                     }
                                     if (index === 0) { console.log("check item:", item) }
-                                    let nameVi = `${item.positionData.valueVi}, ${item.firstName}, ${item.lastName}`;
-                                    let nameEn = `${item.positionData.valueEn}, ${item.lastName}, ${item.firstName}`;
+                                    let nameEn = `${item.positionData.valueEn}, ${item.firstName}, ${item.lastName}`;
+                                    let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
                                     return (<div className='section-customize'>
                                         <div className='customize-border'>
                                             <div className='outer-background'>
