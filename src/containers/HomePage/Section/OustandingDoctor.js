@@ -42,7 +42,7 @@ class OutstandingDoctor extends Component {
                                         base64Image = Buffer.from(item.image, 'base64').toString('binary');
                                     }
                                     if (index === 0) { console.log("check item:", item) }
-                                    let nameEn = `${item.positionData.valueEn}, ${item.firstName}, ${item.lastName}`;
+                                    let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
                                     let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
                                     return (<div className='section-customize'>
                                         <div className='customize-border'>
