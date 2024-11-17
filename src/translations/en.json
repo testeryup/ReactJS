@@ -57,5 +57,11 @@
     "homepage": {
         "outstanding-doctor": "Last week's featured doctors",
         "more": "More"
+    },
+    "manage-schedule":{
+        "title": "Doctor's medical records management",
+        "choose-doctor": "Choose doctor",
+        "choose-date": "Choose date",
+        "save": "Save Infor"
     }
 }
