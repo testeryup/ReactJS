@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './ManageSchedule.scss'
-import { FormattedMessage } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import * as actions from '../../../store/actions';
 import { CRUD_ACTIONS, LANGUAGES, dateFormat } from '../../../utils/constant';
@@ -10,6 +10,7 @@ import DatePicker from '../../../components/Input/DatePicker'
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import _ from 'lodash'
+import {saveBulkCreateScheduleDoctor} from '../../../services/userService'
 class Doctor extends Component {
     constructor(props) {
         super(props);
@@ -89,7 +90,7 @@ class Doctor extends Component {
         })
     }
 
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let {rangeTime, selectedDoctor, currentDate} = this.state;
         let result = [];
 
@@ -101,15 +102,15 @@ class Doctor extends Component {
             toast.error('Please choose your doctor!');
             return;
         }
-        let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        // let formatedDate = moment(currentDate).unix();
         if(rangeTime && rangeTime.length > 0){
             let selectedTime = rangeTime.filter(item => item.isSelected === true)
             if(selectedTime && selectedTime.length > 0){
                 selectedTime.map(time => {
                     let object = {};
                     object.doctorId = selectedDoctor.value;
-                    object.date = formatedDate;
-                    object.time = time.keyMap;
+                    object.date = new Date(currentDate).getTime();
+                    object.timeType = time.keyMap;
                     result.push(object);
                 })
             }
@@ -118,6 +119,11 @@ class Doctor extends Component {
                 return;
             }
         }
+        let res = await saveBulkCreateScheduleDoctor({
+            arrSchedule: result,
+            formattedDate: new Date(currentDate).getTime(),
+            doctorId: selectedDoctor.value
+        });
         console.log("check result:", result);
     }
     render() {
