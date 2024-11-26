@@ -10,7 +10,7 @@ import DatePicker from '../../../components/Input/DatePicker'
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import _ from 'lodash'
-import {saveBulkCreateScheduleDoctor} from '../../../services/userService'
+import { saveBulkCreateScheduleDoctor } from '../../../services/userService'
 class Doctor extends Component {
     constructor(props) {
         super(props);
@@ -79,9 +79,9 @@ class Doctor extends Component {
 
     handleClickBtnTime = (time) => {
         let rangeTime = [...this.state.rangeTime];
-        if(rangeTime && rangeTime.length > 0) {
+        if (rangeTime && rangeTime.length > 0) {
             rangeTime.map(item => {
-                if(item.id === time.id) item.isSelected = !item.isSelected;
+                if (item.id === time.id) item.isSelected = !item.isSelected;
                 return item;
             })
         }
@@ -91,21 +91,21 @@ class Doctor extends Component {
     }
 
     handleSaveSchedule = async () => {
-        let {rangeTime, selectedDoctor, currentDate} = this.state;
+        let { rangeTime, selectedDoctor, currentDate } = this.state;
         let result = [];
 
-        if(!currentDate){
+        if (!currentDate) {
             toast.error('Invalid date!');
             return;
         }
-        if(selectedDoctor && _.isEmpty(selectedDoctor)){
+        if (selectedDoctor && _.isEmpty(selectedDoctor)) {
             toast.error('Please choose your doctor!');
             return;
         }
         // let formatedDate = moment(currentDate).unix();
-        if(rangeTime && rangeTime.length > 0){
+        if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true)
-            if(selectedTime && selectedTime.length > 0){
+            if (selectedTime && selectedTime.length > 0) {
                 selectedTime.map(time => {
                     let object = {};
                     object.doctorId = selectedDoctor.value;
@@ -114,7 +114,7 @@ class Doctor extends Component {
                     result.push(object);
                 })
             }
-            else{
+            else {
                 toast.error("Invalid selected time!");
                 return;
             }
@@ -124,7 +124,12 @@ class Doctor extends Component {
             formattedDate: new Date(currentDate).getTime(),
             doctorId: selectedDoctor.value
         });
-        console.log("check result:", result);
+        if (res && res.errCode === 0) {
+            toast.success("Save infor successfully!");
+        }
+        else {
+            toast.error("Save infor failed!");
+        }
     }
     render() {
         // const { isLoggedIn } = this.props;
@@ -155,7 +160,7 @@ class Doctor extends Component {
                                     onChange={this.handleOnchangeDatePicker}
                                     className="form-control"
                                     value={this.state.currentDate}
-                                    minDate={new Date()}
+                                    minDate={new Date().setHours(0, 0, 0, 0)}
                                 ></DatePicker>
                             </div>
                             <div className='col-12 pick-hour-container'>
@@ -173,9 +178,9 @@ class Doctor extends Component {
                                 }
                             </div>
                             <div className='col-12'>
-                                <button 
-                                className='btn btn-primary btn-save-schedule'
-                                onClick={() => this.handleSaveSchedule()}
+                                <button
+                                    className='btn btn-primary btn-save-schedule'
+                                    onClick={() => this.handleSaveSchedule()}
                                 ><FormattedMessage id="manage-schedule.save"></FormattedMessage></button>
                             </div>
                         </div>
