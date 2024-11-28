@@ -70,5 +70,14 @@
             "no-schedule": "No schedule during this time, please choose another time!",
             "booking-suggest": "Free Booking"
         }
+    },
+    "admin":{
+        "manage-doctor": {
+            "title": "Add doctor's information",
+            "selection": "Select Doctor",
+            "intro": "Doctor's information",
+            "add": "Add Data",
+            "save": "Save Data"
+        }
     }
 }

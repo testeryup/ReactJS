@@ -70,5 +70,14 @@
             "no-schedule": "Không có lịch hẹn trong thời gian này, vui lòng chọn thời gian khác!",
             "booking-suggest": "Chọn và đặt lịch miễn phí"
         }
+    },
+    "admin":{
+        "manage-doctor": {
+            "title": "Tạo thêm thông tin bác sỹ",
+            "selection": "Chọn bác sỹ",
+            "intro": "Thông tin giới thiệu",
+            "add": "Thêm thông tin",
+            "save": "Lưu thông tin"
+        }
     }
 }
