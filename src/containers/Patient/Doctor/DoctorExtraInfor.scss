@@ -25,10 +25,13 @@
 
     .content-down {
         .short-infor {
-            span {
+            .detail {
                 color: rgb(28, 160, 231);
                 cursor: pointer;
 
+            }
+            .currency{
+                margin: 0 5px;
             }
         }
 

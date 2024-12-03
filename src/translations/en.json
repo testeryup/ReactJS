@@ -69,6 +69,13 @@
             "schedule": "Schedule",
             "no-schedule": "No schedule during this time, please choose another time!",
             "booking-suggest": "Free Booking"
+        },
+        "extra-infor-doctor":{
+            "text-address": "Clinic address",
+            "price": "Price: ",
+            "detail": "See Details",
+            "payment": "Patient can pay via: ",
+            "hide-price": "Hide price list"
         }
     },
     "admin":{
