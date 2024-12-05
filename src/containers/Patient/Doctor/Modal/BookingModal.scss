@@ -1,10 +1,10 @@
 .booking-modal-container {
 
     .booking-modal-content {
-        height: 500px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+
         .booking-modal-header {
             padding: 10px;
             border-bottom: 1px solid #ccc;
@@ -31,17 +31,20 @@
             display: flex;
             justify-content: flex-end;
             gap: 10px;
-            button{
+
+            button {
                 border: none;
                 outline: none;
                 padding: 5px 8px;
                 border-radius: 3px;
                 color: #ffffff;
             }
-            .btn-booking-confirm{
+
+            .btn-booking-confirm {
                 background-color: greenyellow;
             }
-            .btn-booking-cancel{
+
+            .btn-booking-cancel {
                 background-color: orange;
             }
         }
