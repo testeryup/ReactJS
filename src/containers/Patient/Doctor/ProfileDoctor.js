@@ -55,7 +55,6 @@ class ProfileDoctor extends Component {
         return <></>;
     }
     render() {
-        console.log("check profile state:", this.state);
         let { dataProfile } = this.state;
         let nameEn = '', nameVi = '';
         let { language, isShowDescriptionDoctor, dataTime } = this.props;
