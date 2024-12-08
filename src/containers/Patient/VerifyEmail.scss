@@ -1,0 +1,11 @@
+.verify-email-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    .infor-booking {
+        text-transform: uppercase;
+        color: rgb(226, 82, 33);
+        font-size: 2rem;
+    }
+}
