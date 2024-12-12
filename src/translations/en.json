@@ -56,7 +56,8 @@
     },
     "homepage": {
         "outstanding-doctor": "Last week's featured doctors",
-        "more": "More"
+        "more": "More",
+        "popular-specialty": "Popular specialties"
     },
     "manage-schedule":{
         "title": "Doctor's medical records management",

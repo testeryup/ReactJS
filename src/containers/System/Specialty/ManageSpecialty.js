@@ -4,9 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import './ManageSpecialty.scss'
-import {CommonUtils} from '../../../utils'
-import {postCreateNewSpecialty} from '../../../services/userService'
-import {toast} from 'react-toastify';
+import { CommonUtils } from '../../../utils'
+import { postCreateNewSpecialty } from '../../../services/userService'
+import { toast } from 'react-toastify';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 class ManageSpecialty extends Component {
@@ -24,20 +24,20 @@ class ManageSpecialty extends Component {
     }
 
     handleOnchangeInput = (event, id) => {
-        let stateCopy = {...this.state};
+        let stateCopy = { ...this.state };
         stateCopy[id] = event.target.value;
         this.setState({
             ...stateCopy
         })
     }
-    
+
     handleEditorChange = ({ html, text }) => {
         this.setState({
             descriptionHTML: html,
             descriptionMarkdown: text
         })
     }
-    handleOnchangeImage =  async (event) => {
+    handleOnchangeImage = async (event) => {
         let data = event.target.files;
         let file = data[0];
         if (file) {
@@ -50,14 +50,20 @@ class ManageSpecialty extends Component {
     handleSaveNewSpecialty = async () => {
         console.log("check submit state:", this.state);
         let res = await postCreateNewSpecialty(this.state);
-        if(res?.errCode === 0){
+        if (res?.errCode === 0) {
             toast.success("Add new specialty successfully!");
+            this.setState({
+                name: '',
+                imageBase64: '',
+                descriptionHTML: '',
+                descriptionMarkdown: ''
+            })
         }
-        else{
+        else {
             toast.error("Add new specialty failed!");
             console.log("check error of save new specialty:", res);
         }
-        
+
     }
     render() {
 
@@ -80,6 +86,7 @@ class ManageSpecialty extends Component {
                             className='form-control-file'
                             type='file'
                             onChange={(event) => this.handleOnchangeImage(event)}
+                            // ref={this.state.imageBase64}
                         >
                         </input>
                     </div>
