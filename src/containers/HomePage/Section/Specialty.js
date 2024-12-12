@@ -4,6 +4,7 @@ import './Specialty.scss'
 import { FormattedMessage } from 'react-intl';
 import Slider from 'react-slick';
 import { getSpecialty } from '../../../services/userService'
+import { withRouter } from 'react-router-dom';
 
 import specialtyImg from '../../../assets/specialty/co-xuong-khop.jpg'
 
@@ -28,6 +29,9 @@ class Specialty extends Component {
         // console.log(this.props);
         this.props.changeLanguageAppRedux(language);
     }
+    handleViewSpecialty = (specialtyId) => {
+        this.props.history.push(`/detail-specialty/${specialtyId}`)
+    }
     render() {
         let { dataSpecialty } = this.state;
         return (
@@ -42,12 +46,15 @@ class Specialty extends Component {
                             {
                                 dataSpecialty?.length > 0 && dataSpecialty.map((item, index) => {
                                     return (
-                                        <div className='section-customize specialty-child' key={index.id}>
+                                        <div className='section-customize specialty-child' key={item.id}>
                                             <div
                                                 className='bg-image section-specialty'
                                                 style={{ background: `#eee url(${item.image}) no-repeat center center / cover` }}
                                             ></div>
-                                            <div className='specialty-name'>{item.name}</div>
+                                            <div 
+                                            className='specialty-name'
+                                            onClick={() => this.handleViewSpecialty(item.id)}
+                                            >{item.name}</div>
                                         </div>
                                     )
                                 })
@@ -74,4 +81,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Specialty));
