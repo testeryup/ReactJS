@@ -2,8 +2,9 @@
     // background-color: #ddd;
 
     .description-specialty {
-        border: 1px solid red;
-        height: 300px;
+        // border: 1px solid red;
+        // height: 300px;
+        // overflow: auto;
     }
 
     .detail-specialty {
@@ -12,6 +13,9 @@
 
     .detail-specialty-body {
         margin: 0 150px;
+        .sp-search-doctor{
+            
+        }
     }
 
     .each-doctor {
@@ -19,7 +23,6 @@
         width: 100%;
         min-height: 300px;
         margin: 15px 0;
-        border: 1px solid green;
 
         background-color: #fff;
         box-shadow: 0 1px 6px #20212447;
