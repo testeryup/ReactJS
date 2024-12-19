@@ -2,9 +2,13 @@
     // background-color: #ddd;
 
     .description-specialty {
-        // border: 1px solid red;
-        // height: 300px;
-        // overflow: auto;
+        background-color: white !important;
+        padding: 10px;
+        margin: 15px 0;
+        h1, h2, h3{
+            font-size: 16px;
+            font-weight: 600;
+        }
     }
 
     .detail-specialty {
@@ -12,9 +16,18 @@
     }
 
     .detail-specialty-body {
-        margin: 0 150px;
+        // margin: 0 150px;
+        padding: 0 100px;
+        background-color: #eee;
         .sp-search-doctor{
-            
+            select{
+                height: 30px;
+                padding: 5px 8px;
+                border: none;
+                outline: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
         }
     }
 

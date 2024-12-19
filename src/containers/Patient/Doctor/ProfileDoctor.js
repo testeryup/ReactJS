@@ -7,6 +7,8 @@ import { LANGUAGES } from '../../../utils';
 import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
+
 class ProfileDoctor extends Component {
     constructor(props) {
         super(props);
@@ -37,14 +39,14 @@ class ProfileDoctor extends Component {
         }
     }
     renderTimeBooking = (dataTime) => {
-        let {language} = this.props;
-        if(dataTime && !_.isEmpty(dataTime)){
+        let { language } = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
             let time = language === LANGUAGES.VI ?
-            dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
-            let date = language === LANGUAGES.VI ? 
-            moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY') 
-            :
-            moment.unix(+dataTime.date / 1000).locale('en').format('ddd - MM/DD/YYYY') 
+                dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
+            let date = language === LANGUAGES.VI ?
+                moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
+                :
+                moment.unix(+dataTime.date / 1000).locale('en').format('ddd - MM/DD/YYYY')
             return (
                 <>
                     <div>{time} - {date}</div>
@@ -57,7 +59,7 @@ class ProfileDoctor extends Component {
     render() {
         let { dataProfile } = this.state;
         let nameEn = '', nameVi = '';
-        let { language, isShowDescriptionDoctor, dataTime } = this.props;
+        let { language, isShowDescriptionDoctor, dataTime, isShowLinkDetail, isShowPrice, doctorId } = this.props;
         if (dataProfile && dataProfile.positionData) {
             nameEn = `${dataProfile.positionData.valueEn}, ${dataProfile.firstName} ${dataProfile.lastName}`;
             nameVi = `${dataProfile.positionData.valueVi}, ${dataProfile.lastName} ${dataProfile.firstName}`;
@@ -95,27 +97,39 @@ class ProfileDoctor extends Component {
                     </div>
 
                 </div>
-                <div className='price'>
-                    Giá khám:
-                    {dataProfile?.Doctor_Infor && language === LANGUAGES.VI &&
-                        <NumberFormat
-                            value={dataProfile.Doctor_Infor.priceTypeData.valueVi}
-                            displayType='text'
-                            thousandSeparator={true}
-                            suffix='VNĐ'
-                            className='currency'
-                        ></NumberFormat>
-                    }
-                    {dataProfile?.Doctor_Infor && language === LANGUAGES.EN &&
-                        <NumberFormat
-                            value={dataProfile.Doctor_Infor.priceTypeData.valueEn}
-                            displayType='text'
-                            thousandSeparator={true}
-                            suffix='$'
-                            className='currency'
-                        ></NumberFormat>
-                    }
-                </div>
+                {
+                    isShowLinkDetail === true && 
+                    <div className='view-detail-doctor'>
+                        <Link to={`/detail-doctor/${doctorId}`}>
+                            <FormattedMessage id="patient.extra-infor-doctor.detail"></FormattedMessage>
+                        </Link>
+                        
+                    </div>
+                }
+                {
+                    isShowPrice && <div className='price'>
+                        Giá khám:
+                        {dataProfile?.Doctor_Infor && language === LANGUAGES.VI &&
+                            <NumberFormat
+                                value={dataProfile.Doctor_Infor.priceTypeData.valueVi}
+                                displayType='text'
+                                thousandSeparator={true}
+                                suffix='VNĐ'
+                                className='currency'
+                            ></NumberFormat>
+                        }
+                        {dataProfile?.Doctor_Infor && language === LANGUAGES.EN &&
+                            <NumberFormat
+                                value={dataProfile.Doctor_Infor.priceTypeData.valueEn}
+                                displayType='text'
+                                thousandSeparator={true}
+                                suffix='$'
+                                className='currency'
+                            ></NumberFormat>
+                        }
+                    </div>
+                }
+
             </div>
         );
     }

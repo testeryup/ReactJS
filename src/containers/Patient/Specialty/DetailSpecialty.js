@@ -35,18 +35,47 @@ class DetailSpecialty extends Component {
                         })
                     }
                 }
+                resProvince.data.unshift({
+                    createAt: null,
+                    keyMap: "ALL",
+                    type: "PROVINCE",
+                    valueEn: "ALL",
+                    valueVi: "Toàn quốc"
+                });
                 this.setState({
                     dataDetailSpecialty: res.data,
                     arrDoctorId: arrDoctorId,
-                    listProvince: resProvince.data
+                    listProvince: resProvince.data ? resProvince.data : []
                 })
                 console.log('check detail specialty response:', this.state.dataDetailSpecialty);
             }
         }
     }
 
-    handleOnchangeSelect = (event) => {
-        console.log("check onchange select:", event.target.value);
+    handleOnchangeSelect = async (event) => {
+        console.log("check onchange select:", this.props.match.params.id, event.target.value);
+        if(this.props.match?.params?.id){
+            let id = this.props.match.params.id;
+            let location = event.target.value;
+
+            let res = await getDetailSpecialtyById({id, location});
+            if(res?.errCode === 0){
+                let data = res.data;
+                let arrDoctorId = [];
+                if(data && !_.isEmpty(data)){
+                    let arr = data.doctorSpecialty;
+                    if(arr && arr.length > 0){
+                        arr.map(item => {
+                            arrDoctorId.push(item.doctorId);
+                        })
+                    }
+                }
+                this.setState({
+                    dataDetailSpecialty: res.data,
+                    arrDoctorId: arrDoctorId
+                })
+            }
+        }
     }
 
     render() {
@@ -89,6 +118,8 @@ class DetailSpecialty extends Component {
                                         <ProfileDoctor
                                             doctorId={item}
                                             isShowDescriptionDoctor={true}
+                                            isShowLinkDetail={true}
+                                            isShowPrice={false}
                                         ></ProfileDoctor>
                                     </div>
                                 </div>

@@ -9,7 +9,7 @@ import DatePicker from '../../../../components/Input/DatePicker';
 import * as actions from '../../../../store/actions'
 import { LANGUAGES } from '../../../../utils';
 import Select from 'react-select';
-import {postPatientBooking} from '../../../../services/userService'
+import { postPatientBooking } from '../../../../services/userService'
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
@@ -107,7 +107,7 @@ class BookingModal extends Component {
             language: this.props.language,
             timeString: timeString
         });
-        if(res && res.errCode === 0){
+        if (res && res.errCode === 0) {
             toast.success("Booking new appointment successfully!");
             this.props.closeBooking();
             this.setState({
@@ -121,30 +121,30 @@ class BookingModal extends Component {
                 timeType: ''
             });
         }
-        else{
+        else {
             toast.error("Booking failed");
         }
     }
 
     buildTimeBooking = (dataTime) => {
-        let {language} = this.props;
-        if(dataTime && !_.isEmpty(dataTime)){
+        let { language } = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
             let time = language === LANGUAGES.VI ?
-            dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
+                dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
 
-            let date = language === LANGUAGES.VI ? 
-            moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY') 
-            :
-            moment.unix(+dataTime.date / 1000).locale('en').format('ddd - MM/DD/YYYY') 
+            let date = language === LANGUAGES.VI ?
+                moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
+                :
+                moment.unix(+dataTime.date / 1000).locale('en').format('ddd - MM/DD/YYYY')
             return `${time} - ${date}`;
         }
         return ``;
     }
     buildDoctorName = (dataTime) => {
-        let {language} = this.props;
-        if(dataTime && !_.isEmpty(dataTime)){
+        let { language } = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
             let name = language === LANGUAGES.VI ? `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}` :
-            `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}` 
+                `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`
             return name;
         }
         return ``;
@@ -185,6 +185,8 @@ class BookingModal extends Component {
                                     doctorId={doctorId}
                                     isShowDescriptionDoctor={false}
                                     dataTime={dataTime}
+                                    isShowLinkDetail={false}
+                                    isShowPrice={true}
                                 ></ProfileDoctor>
                             </div>
 
@@ -235,7 +237,7 @@ class BookingModal extends Component {
                                         onChange={this.handleOnchangeDatePicker}
                                         className="form-control"
                                         value={this.state.birthday}
-                                        // minDate={new Date().setHours(0, 0, 0, 0)}
+                                    // minDate={new Date().setHours(0, 0, 0, 0)}
                                     ></DatePicker>
                                 </div>
                                 <div className='col-6 form-group'>
