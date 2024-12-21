@@ -2,7 +2,7 @@ import actionTypes from './actionTypes';
 import {
     getAllCodeService, createNewUserService, getAllUsers,
     deleteUserService, editUserService, getTopDoctorHomeService, getAllDoctors, 
-    saveDetailDoctorService, getSpecialty
+    saveDetailDoctorService, getSpecialty, getAllClinic
 } from '../../services/userService';
 import { reverse } from 'lodash';
 import { ToastContainer, toast } from 'react-toastify';
@@ -324,11 +324,13 @@ export const fetchRequiredDoctorInfor = () => {
             let resPayment = await getAllCodeService("PAYMENT");
             let resProvince = await getAllCodeService("PROVINCE");
             let resSpecialty= await getSpecialty();
+            let resClinic = await getAllClinic();
+
             if (resPrice && resPrice.errCode === 0 &&
                 resPayment && resPayment.errCode === 0 &&
                 resProvince && resProvince.errCode === 0 &&
-                resSpecialty && resSpecialty.errCode === 0 
-            
+                resSpecialty && resSpecialty.errCode === 0 &&
+                resClinic && resClinic.errCode === 0
             )
 
                 {
@@ -336,7 +338,8 @@ export const fetchRequiredDoctorInfor = () => {
                         resPrice: resPrice.data,
                         resPayment: resPayment.data,
                         resProvince: resProvince.data,
-                        resSpecialty: resSpecialty.data
+                        resSpecialty: resSpecialty.data,
+                        resClinic: resClinic.data
                     }
                 dispatch(fetchRequiredDoctorInforSuccess(data));
             }

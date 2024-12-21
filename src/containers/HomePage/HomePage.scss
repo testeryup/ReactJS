@@ -21,7 +21,7 @@
     // content: '<' !important;
 }
 
-.slick-disabled{
+.slick-disabled {
     display: none !important;
 }
 
@@ -58,6 +58,7 @@
     .section-body {
         .section-customize {
             cursor: pointer;
+
             .outer-background {
                 margin-bottom: 10px;
             }
@@ -71,7 +72,7 @@
                 }
 
                 &.section-medical-facility {
-                    background: #eee url('../../assets/medical-facility/benh-vien.jpeg') no-repeat center center / cover;
+                    // background: #eee url('../../assets/medical-facility/benh-vien.jpeg') no-repeat center center / cover;
                 }
 
                 &.section-outstanding-doctor {
